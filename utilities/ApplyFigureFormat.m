@@ -1,5 +1,5 @@
-﻿function ax = ApplyFigureFormat(fig)
-%% ApplyFigureFormat - Apply paper-level axes formatting
+function ax = ApplyFigureFormat(fig)
+%APPLYFIGUREFORMAT Apply shared axes formatting to a figure.
 
     if nargin < 1 || isempty(fig)
         fig = gcf;

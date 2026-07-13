@@ -1,5 +1,5 @@
-﻿function PlotCoreResults(data, iso, rpm, params)
-%% PlotCoreResults - Draw the core paper figures
+function PlotCoreResults(data, iso, rpm, params)
+%PLOTCORESULTS Plot TGA, DTG, RPM fit, and psi scan figures.
 
     style = PaperStyle();
 
@@ -27,7 +27,7 @@
     figure('Name', 'DTG Curve', 'Color', style.figureColor, 'Position', style.figSizeMid);
     plot(data.T, data.dmdt, '-', 'Color', style.colors.blue, 'LineWidth', style.lineWidth);
     xlabel('Temperature (C)', 'FontName', style.fontName, 'FontSize', style.labelFontSize);
-    ylabel('dm/dt  (%/min)', 'FontName', style.fontName, 'FontSize', style.labelFontSize);
+    ylabel('dm/dt (%/min)', 'FontName', style.fontName, 'FontSize', style.labelFontSize);
     hold on;
     [min_val, min_idx] = min(data.dmdt);
     plot(data.T(min_idx), min_val, 'v', ...
@@ -35,7 +35,7 @@
         'MarkerFaceColor', style.colors.red, ...
         'MarkerEdgeColor', style.colors.red);
     text(data.T(min_idx) + 5, min_val, ...
-        sprintf('T_{peak}=%.0f C\n%.3f %%/min', data.T(min_idx), min_val), ...
+        sprintf('T_peak = %.0f C\n%.3f %%/min', data.T(min_idx), min_val), ...
         'FontName', style.fontName, 'FontSize', 10, 'Color', style.colors.red);
     ApplyFigureFormat(gcf);
     if params.save_figures
@@ -52,12 +52,14 @@
     plot(rpm.t, rpm.X_fit, '-', ...
         'Color', style.colors.red, ...
         'LineWidth', style.lineWidth, ...
-        'DisplayName', sprintf('RPM fit  k=%.4f, psi=%.4f', rpm.k, rpm.psi));
+        'DisplayName', sprintf('RPM fit  k = %.4f, psi = %.4f', rpm.k, rpm.psi));
     xlabel('Isothermal time (min)', 'FontName', style.fontName, 'FontSize', style.labelFontSize);
     ylabel('Conversion X', 'FontName', style.fontName, 'FontSize', style.labelFontSize);
-    legend('Location', 'northwest', 'FontName', style.fontName, 'FontSize', style.legendFontSize, 'Box', 'off');
+    legend('Location', 'northwest', 'FontName', style.fontName, ...
+        'FontSize', style.legendFontSize, 'Box', 'off');
     ylim([0, 1.05]);
-    annotation_str = sprintf(' k = %.4f min^{-1}\n psi = %.4f\n R2 = %.5f', rpm.k, rpm.psi, rpm.R2);
+    annotation_str = sprintf(' k = %.4f min^{-1}\n psi = %.4f\n R2 = %.5f', ...
+        rpm.k, rpm.psi, rpm.R2);
     annotation('textbox', [0.62 0.18 0.25 0.18], 'String', annotation_str, ...
         'FitBoxToText', 'on', 'BackgroundColor', [1 1 0.85], ...
         'EdgeColor', 'k', 'FontName', style.fontName, 'FontSize', 11);
@@ -67,7 +69,8 @@
     end
 
     figure('Name', 'Psi Scan', 'Color', style.figureColor, 'Position', style.figSizeCompact);
-    plot(rpm.psi_range, rpm.R2_scan, '-', 'Color', style.colors.blue, 'LineWidth', style.lineWidth);
+    plot(rpm.psi_range, rpm.R2_scan, '-', ...
+        'Color', style.colors.blue, 'LineWidth', style.lineWidth);
     hold on;
     plot(rpm.psi, rpm.R2, 'v', ...
         'MarkerSize', style.markerSize, ...
@@ -76,13 +79,14 @@
         'DisplayName', sprintf('Best psi = %.3f', rpm.psi));
     xlabel('Structure parameter psi', 'FontName', style.fontName, 'FontSize', style.labelFontSize);
     ylabel('R2', 'FontName', style.fontName, 'FontSize', style.labelFontSize);
-    legend('R2(psi)', sprintf('Best psi=%.3f', rpm.psi), ...
-        'Location', 'best', 'FontName', style.fontName, 'FontSize', style.legendFontSize, 'Box', 'off');
+    legend('R2(psi)', sprintf('Best psi = %.3f', rpm.psi), ...
+        'Location', 'best', 'FontName', style.fontName, ...
+        'FontSize', style.legendFontSize, 'Box', 'off');
     ApplyFigureFormat(gcf);
     if params.save_figures
         ExportFigure(gcf, 'Fig4_psi_scan');
     end
 
-    fprintf('    Plotting complete, 4 figures generated.\n');
+    fprintf('    Plotting complete: 4 figures generated.\n');
 end
 

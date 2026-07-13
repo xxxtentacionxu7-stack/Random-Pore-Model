@@ -1,5 +1,5 @@
-﻿function ExportFigure(fig, basename)
-%% ExportFigure - Export PNG and PDF with publication quality
+function ExportFigure(fig, basename)
+%EXPORTFIGURE Export a figure as PNG, PDF, and EPS.
 
     if nargin < 1 || isempty(fig)
         fig = gcf;

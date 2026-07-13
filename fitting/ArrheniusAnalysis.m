@@ -1,5 +1,5 @@
-﻿function arr = ArrheniusAnalysis(results, save_fig)
-%% ArrheniusAnalysis - Arrhenius analysis
+function arr = ArrheniusAnalysis(results, save_fig)
+%ARRHENIUSANALYSIS Analyze temperature dependence of fitted k values.
 
     style = PaperStyle();
     R_gas = 8.314e-3;
@@ -55,11 +55,13 @@
             'FontName', style.fontName, 'FontSize', 10);
     end
 
-    xlabel('1000/T  (K^{-1})', 'FontName', style.fontName, 'FontSize', style.labelFontSize);
+    xlabel('1000/T (K^{-1})', 'FontName', style.fontName, 'FontSize', style.labelFontSize);
     ylabel('ln(k)', 'FontName', style.fontName, 'FontSize', style.labelFontSize);
-    legend('Location', 'best', 'FontName', style.fontName, 'FontSize', style.legendFontSize, 'Box', 'off');
+    legend('Location', 'best', 'FontName', style.fontName, ...
+        'FontSize', style.legendFontSize, 'Box', 'off');
 
-    ann_str = sprintf(' Ea = %.2f kJ/mol\n A = %.3e min^{-1}\n R2 = %.5f', Ea, A, R2);
+    ann_str = sprintf(' Ea = %.2f kJ/mol\n A = %.3e min^{-1}\n R2 = %.5f', ...
+        Ea, A, R2);
     annotation('textbox', [0.55 0.2 0.3 0.2], 'String', ann_str, ...
         'FitBoxToText', 'on', 'BackgroundColor', [1 1 0.85], ...
         'EdgeColor', 'k', 'FontName', style.fontName, 'FontSize', 11);
